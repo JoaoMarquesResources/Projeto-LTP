@@ -1,6 +1,9 @@
 import random
 
 ListaEquipas = []
+NumJogadoresEquipa = []
+JogadoresDaEquipa = []
+PosicaoJogadores = []
 
 while True:
     print("\n----- MENU -----")
@@ -21,21 +24,38 @@ while True:
                 else: break
             
             for i in range(0, equipas):
-                nome = str(input("\nNome da Equipa: "))
+                nomeEquipa = str(input("\nNome da Equipa: "))
 
                 while True:
                     numJogadores = int(input("Número de jogadores da equipa: "))
 
-                    if numJogadores < 5:
+                    if numJogadores < 5 or numJogadores > 12:
                         print("ERRO: Número de Jogadores inválido!")
                     else:
-                        ListaEquipas.append(nome)
-                        ListaEquipas.append(numJogadores)
+                        ListaEquipas.append(nomeEquipa)
+                        NumJogadoresEquipa.append(numJogadores)
                         break
+                
+                print(f"----- Jogadores da equipa {nomeEquipa} -----")
+                for i in range(0, numJogadores):
+                    nome = str(input("Nome do jogador: "))
+                    JogadoresDaEquipa.append(nome)
+                    while True:
+                        posicao = str(input(f"O jogador {nome} é Titular ou Suplente (t/s): "))
+                        if posicao == "t" or posicao == "s":
+                            PosicaoJogadores.append(posicao)
+                            break
+                        else: print("ERRO: Posição inválida!")
+                print(38*"-")
+
             print(ListaEquipas)
+            print(NumJogadoresEquipa)
+            print(JogadoresDaEquipa)
+            print(PosicaoJogadores)
 
         elif opcao == 2:
-            for i in range(0, equipas):
+            print("opçao 2")
+            #for i in range(0, equipas):
                 #gerar random os resultados
 
         else: break
