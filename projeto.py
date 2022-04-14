@@ -7,7 +7,8 @@ JogadoresDaEquipa = []
 PosicaoJogadores = []
 #--------Variáveis auxiliares--------
 vez = 0
-
+# TEST
+print("DAWDAWD")
 
 while True:
     print("\n----- MENU -----")
