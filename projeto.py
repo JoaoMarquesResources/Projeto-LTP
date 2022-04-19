@@ -8,8 +8,6 @@ PosicaoJogadores = []
 #--------Variáveis auxiliares--------
 vez = 0
 
-print("dowdo")
-
 while True:
     print("\n----- MENU -----")
     print("1 - Gerir Equipas")
@@ -46,6 +44,7 @@ while True:
                     
                     print(f"----- Jogadores da equipa {nomeEquipa} -----")
                     for i in range(0, numJogadores):
+                        print(f"  Jogador {i + 1}  ")
                         nome = str(input("Nome do jogador: "))
                         JogadoresDaEquipa.append(nome)
                         while True:
@@ -61,13 +60,26 @@ while True:
                 print(JogadoresDaEquipa)
                 print(PosicaoJogadores)
             else:
-                print("\n----- MENU DE GESTÃO DE EQUIPAS -----")
-                print("1 - Retirar jogador da equipa")
-                print("2 - Adicionar jogador da equipa")
+                print("\n----- MENU DE GESTÃO DE EQUIPAS -------")
+                print("1 - Retirar jogador à equipa")
+                print("2 - Adicionar jogador à equipa")
                 print("3 - Trocar posição do jogador")
                 print("---------------------------------------")
 
                 opcao2 = int(input("Opção: "))
+
+                if opcao2 == 1:
+                    print(f"Equipas: {ListaEquipas}")
+
+                    i = 0
+                    while True:
+                        EscolhaEquipa = input("Para qual equipa deseja retirar um jogador: ")
+
+                        if EscolhaEquipa == ListaEquipas[i]: break
+                        else: print("ERRO: Equipa não exite!")
+                        i += 1
+                    
+                    print("continuar")
 
         elif opcao == 2:
             print("opçao 2")
