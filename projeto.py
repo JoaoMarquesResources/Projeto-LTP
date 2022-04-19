@@ -8,7 +8,8 @@ PosicaoJogadores = []
 #--------Variáveis auxiliares--------
 vez = 0
 
-print("doajwdo")
+print("dowdo")
+
 while True:
     print("\n----- MENU -----")
     print("1 - Gerir Equipas")
