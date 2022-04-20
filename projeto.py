@@ -60,7 +60,7 @@ while True:
                 print(JogadoresDaEquipa)
                 print(PosicaoJogadores)
             else:
-                print("\n----- MENU DE GESTÃO DE EQUIPAS -------")
+                print("\n------ MENU DE GESTÃO DE EQUIPAS ------")
                 print("1 - Retirar jogador à equipa")
                 print("2 - Adicionar jogador à equipa")
                 print("3 - Trocar posição do jogador")
@@ -71,33 +71,18 @@ while True:
                 if opcao2 == 1:
                     print(f"Equipas: {ListaEquipas}")
 
-                    i = 0
-                    check = False
-                    while True:
-                        EscolhaEquipa = input("Para qual equipa deseja retirar um jogador: ")
+                    n = 0
+                    for i in range(1, len(ListaEquipas) + 1):
+                        for j in range(1, NumJogadoresEquipa[i] + 1):
+                            n += 1
+                            print(f"Equipa {i}: {ListaEquipas[i]} -> Jogador {j}: {JogadoresDaEquipa[n]}")
 
-                        for j in range(0, len(ListaEquipas)):
-                            if EscolhaEquipa == ListaEquipas[j]:
-                                check = True
-                                aux = j
-                        
-                        if check: break
-                        else: print("ERRO: Equipa não exite!")
-                        i += 1
-                    
-                    print("Jogadores:")
-                    
-                    aux2 = NumJogadoresEquipa[aux]
+                    equipa = int(input("Nº da equipa: "))
+                    jogador = int(input("Nº do jogador a remover: "))
 
-                    for i in range(0, NumJogadoresEquipa[aux]):
-                        print((aux2 - 1) + i)
-                        print(f"Jogador {i + 1}: {JogadoresDaEquipa[(aux2 - 1) + i]}")
-                    
-                    jogador = int(input("Nº do jogador a retirar: "))
-
-                    NumJogadoresEquipa[aux] -= 1
-                    JogadoresDaEquipa.pop((aux2 - 1) + jogador - 1)
-                    PosicaoJogadores.pop((aux2 - 1) + jogador - 1)
+                    NumJogadoresEquipa[equipa] -= 1
+                    JogadoresDaEquipa.pop(jogador - 1)
+                    PosicaoJogadores.pop(jogador - 1)
 
                     print(NumJogadoresEquipa)
                     print(JogadoresDaEquipa)
