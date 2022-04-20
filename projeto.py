@@ -72,14 +72,36 @@ while True:
                     print(f"Equipas: {ListaEquipas}")
 
                     i = 0
+                    check = False
                     while True:
                         EscolhaEquipa = input("Para qual equipa deseja retirar um jogador: ")
 
-                        if EscolhaEquipa == ListaEquipas[i]: break
+                        for j in range(0, len(ListaEquipas)):
+                            if EscolhaEquipa == ListaEquipas[j]:
+                                check = True
+                                aux = j
+                        
+                        if check: break
                         else: print("ERRO: Equipa não exite!")
                         i += 1
                     
-                    print("continuar")
+                    print("Jogadores:")
+                    
+                    aux2 = NumJogadoresEquipa[aux]
+
+                    for i in range(0, NumJogadoresEquipa[aux]):
+                        print((aux2 - 1) + i)
+                        print(f"Jogador {i + 1}: {JogadoresDaEquipa[(aux2 - 1) + i]}")
+                    
+                    jogador = int(input("Nº do jogador a retirar: "))
+
+                    NumJogadoresEquipa[aux] -= 1
+                    JogadoresDaEquipa.pop((aux2 - 1) + jogador - 1)
+                    PosicaoJogadores.pop((aux2 - 1) + jogador - 1)
+
+                    print(NumJogadoresEquipa)
+                    print(JogadoresDaEquipa)
+                    print(PosicaoJogadores)
 
         elif opcao == 2:
             print("opçao 2")
