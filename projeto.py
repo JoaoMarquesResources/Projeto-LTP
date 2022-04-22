@@ -69,20 +69,30 @@ while True:
                 opcao2 = int(input("Opção: "))
 
                 if opcao2 == 1:
-                    print(f"Equipas: {ListaEquipas}")
+                    print(f"Equipas: {ListaEquipas}")     
+                    while True:
+                        equipa = input("Nome da equipa para remover jogador: ")
+                        if equipa in ListaEquipas:
+                            pos = ListaEquipas.index(equipa)
+                            if NumJogadoresEquipa[pos] > 5:
+                                aux = pos
+                                break
+                            else:
+                                print("ERRO: Tamanho da equipa ficará menor que 5!")
+                        else:
+                            print("ERRO: Nome da equipa inválido!")
 
-                    n = 0
-                    for i in range(1, len(ListaEquipas) + 1):
-                        for j in range(1, NumJogadoresEquipa[i] + 1):
-                            n += 1
-                            print(f"Equipa {i}: {ListaEquipas[i]} -> Jogador {j}: {JogadoresDaEquipa[n]}")
+                    while True:
+                        jogador = input(f"\nNome do jogador a remover da equipa {equipa}: ")
+                        if jogador in JogadoresDaEquipa:
+                            aux2 = JogadoresDaEquipa.index(jogador)
+                            break
+                        else:
+                            print("ERRO: Jogador não existe!")
 
-                    equipa = int(input("Nº da equipa: "))
-                    jogador = int(input("Nº do jogador a remover: "))
-
-                    NumJogadoresEquipa[equipa] -= 1
-                    JogadoresDaEquipa.pop(jogador - 1)
-                    PosicaoJogadores.pop(jogador - 1)
+                    NumJogadoresEquipa[aux] -= 1
+                    JogadoresDaEquipa.pop(aux2)
+                    PosicaoJogadores.pop(aux2)
 
                     print(NumJogadoresEquipa)
                     print(JogadoresDaEquipa)
