@@ -76,6 +76,7 @@ while True:
                             pos = ListaEquipas.index(equipa)
                             if NumJogadoresEquipa[pos] > 5:
                                 aux = pos
+                                print("DAWDAW")
                                 break
                             else:
                                 print("ERRO: Tamanho da equipa ficará menor que 5!")
