@@ -76,7 +76,6 @@ while True:
                             pos = ListaEquipas.index(equipa)
                             if NumJogadoresEquipa[pos] > 5:
                                 aux = pos
-                                print("DAWDAW")
                                 break
                             else:
                                 print("ERRO: Tamanho da equipa ficará menor que 5!")
@@ -85,11 +84,23 @@ while True:
 
                     while True:
                         jogador = input(f"\nNome do jogador a remover da equipa {equipa}: ")
-                        if jogador in JogadoresDaEquipa:
-                            aux2 = JogadoresDaEquipa.index(jogador)
+
+                        aux = -1
+                        aux2 = 0
+                        
+                        for i in range(0, len(NumJogadoresEquipa)):
+                            if i == 0: cena = 0
+                            else: cena += NumJogadoresEquipa[i - 1]
+
+                            for j in range(cena, cena + NumJogadoresEquipa[i]):
+                                if JogadoresDaEquipa[j] == jogador:
+                                    aux = i
+                                    aux2 = JogadoresDaEquipa.index(jogador)
+                        
+                        if aux == pos:
                             break
                         else:
-                            print("ERRO: Jogador não existe!")
+                            print(f"ERRO: O jogador: {jogador} não faz parte da equipa: {equipa}")
 
                     NumJogadoresEquipa[aux] -= 1
                     JogadoresDaEquipa.pop(aux2)
