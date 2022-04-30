@@ -25,7 +25,7 @@ while True:
                 while True:
                     equipas = int(input("\nNúmero de Equipas: "))
 
-                    if equipas < 3:
+                    if equipas < 3 or equipas > 10:
                         print("ERRO: Numero de equipas inválido")
                     else: break
                 
@@ -115,7 +115,7 @@ while True:
                         equipa = input("Nome da equipa para adicionar jogador: ")
                         if equipa in ListaEquipas:
                             pos = ListaEquipas.index(equipa)
-                            if NumJogadoresEquipa[pos] <= 11:
+                            if NumJogadoresEquipa[pos] < 11:
                                 break
                             else:
                                 print("ERRO: Tamanho da equipa ficará maior que 11!")
@@ -131,15 +131,21 @@ while True:
                             if ts == "t" or ts == "s": break
                             else: print("ERRO: Posição inválida!")
 
-                        #ADICIONAR JOGADOR ESTA MAL
+                        for i in range(0, len(NumJogadoresEquipa)):
+                            if i == 0: cena = 0
+                            else: cena += NumJogadoresEquipa[i - 1]
+
+                            if i == pos:
+                                print("---------DIAWHJDOAIWHJDAHWJOI--------------")
+                                JogadoresDaEquipa.insert(cena + NumJogadoresEquipa[i], jogador)
+                                PosicaoJogadores.insert(cena + NumJogadoresEquipa[i], ts)
 
                         NumJogadoresEquipa[pos] += 1
-                        JogadoresDaEquipa.insert(NumJogadoresEquipa[pos], jogador)
-                        PosicaoJogadores.insert(NumJogadoresEquipa[pos], ts)
 
                         print(NumJogadoresEquipa)
                         print(JogadoresDaEquipa)
                         print(PosicaoJogadores)
+                        break
 
         elif opcao == 2:
             print("opçao 2")
