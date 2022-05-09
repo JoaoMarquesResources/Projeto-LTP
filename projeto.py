@@ -9,14 +9,14 @@ PosicaoJogadores = []
 vez = 0
 gerir = False
 
-ler = open('jogadores.txt', 'r')
+ler = open('Projeto-LTP/jogadores.txt', 'r')
 conteudo = ler.read()
 
 if conteudo == "": gerir = True
 ler.close()
 
 def atualizarFicheiro():
-    fich = open('jogadores.txt', 'w')
+    fich = open('Projeto-LTP/jogadores.txt', 'w')
 
     #Escrever no ficheiro a informação
     for i in range(0, len(ListaEquipas)):
@@ -91,8 +91,6 @@ while True:
 
                 atualizarFicheiro()
 
-                #gerir = False
-
             else:
                 print("\n------ MENU DE GESTÃO DE EQUIPAS ------")
                 print("1 - Retirar jogador à equipa")
@@ -102,7 +100,7 @@ while True:
 
                 #Buscar o conteudo ao ficheiro
                 if gerir == False:
-                    ler = open('jogadores.txt', 'r')
+                    ler = open('Projeto-LTP/jogadores.txt', 'r')
                     
                     n = 0
                     palavras = ler.readlines()
@@ -205,12 +203,20 @@ while True:
                     while True:
                         jog = input("Nome do jogador: ")
 
-                        for i in range(0, len(JogadoresDaEquipa)):
-                            if JogadoresDaEquipa[i] == jog:
-                                break
-                        
-                        print("ERRO: Jogador não exite!")
+                        if jog in JogadoresDaEquipa:
+                            i = JogadoresDaEquipa.index(jog)
+                            break
+                        else: print("ERRO: Jogador não exite!")
 
+                    pos = input("Posição nova do jogador (t/s): ")
+
+                    PosicaoJogadores[i] = pos
+
+                    print(NumJogadoresEquipa)
+                    print(JogadoresDaEquipa)
+                    print(PosicaoJogadores)
+
+                    atualizarFicheiro()
 
         elif opcao == 2:
             print("opçao 2")
