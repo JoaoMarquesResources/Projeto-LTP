@@ -7,6 +7,35 @@ JogadoresDaEquipa = []
 PosicaoJogadores = []
 #--------Variáveis auxiliares--------
 vez = 0
+gerir = False
+
+ler = open('jogadores.txt', 'r')
+conteudo = ler.read()
+
+if conteudo == "": gerir = True
+ler.close()
+
+def atualizarFicheiro():
+    fich = open('jogadores.txt', 'w')
+
+    #Escrever no ficheiro a informação
+    for i in range(0, len(ListaEquipas)):
+        fich.write(f"{ListaEquipas[i]} ")
+    fich.write("\n")
+
+    for i in range(0, len(NumJogadoresEquipa)):
+        fich.write(f"{NumJogadoresEquipa[i]} ")
+    fich.write("\n")
+
+    for i in range(0, len(JogadoresDaEquipa)):
+        fich.write(f"{JogadoresDaEquipa[i]} ")
+    fich.write("\n")
+
+    for i in range(0, len(PosicaoJogadores)):
+        fich.write(f"{PosicaoJogadores[i]} ")
+    fich.write("\n")
+
+    fich.close()
 
 while True:
     print("\n----- MENU -----")
@@ -20,8 +49,8 @@ while True:
     if opcao >= 1 and opcao <= 3:
         if opcao == 1:
             vez += 1
+            if vez == 1 and gerir:
 
-            if vez == 1:
                 while True:
                     equipas = int(input("\nNúmero de Equipas: "))
 
@@ -59,12 +88,35 @@ while True:
                 print(NumJogadoresEquipa)
                 print(JogadoresDaEquipa)
                 print(PosicaoJogadores)
+
+                atualizarFicheiro()
+
+                #gerir = False
+
             else:
                 print("\n------ MENU DE GESTÃO DE EQUIPAS ------")
                 print("1 - Retirar jogador à equipa")
                 print("2 - Adicionar jogador à equipa")
                 print("3 - Trocar posição do jogador")
                 print("---------------------------------------")
+
+                #Buscar o conteudo ao ficheiro
+                if gerir == False:
+                    ler = open('jogadores.txt', 'r')
+                    
+                    n = 0
+                    palavras = ler.readlines()
+                    
+                    for line in palavras:
+                        n = n + 1
+                        for word in line.split():
+                            if n == 1: ListaEquipas.append(str(word))
+                            if n == 2: NumJogadoresEquipa.append(int(word))
+                            if n == 3: JogadoresDaEquipa.append(str(word))
+                            if n == 4: PosicaoJogadores.append(str(word))
+                    
+                    gerir = True
+                    ler.close()
 
                 opcao2 = int(input("Opção: "))
 
@@ -109,6 +161,8 @@ while True:
                     print(JogadoresDaEquipa)
                     print(PosicaoJogadores)
 
+                    atualizarFicheiro()
+
                 elif opcao2 == 2:
                     print(f"Equipas: {ListaEquipas}")     
                     while True:
@@ -136,7 +190,6 @@ while True:
                             else: cena += NumJogadoresEquipa[i - 1]
 
                             if i == pos:
-                                print("---------DIAWHJDOAIWHJDAHWJOI--------------")
                                 JogadoresDaEquipa.insert(cena + NumJogadoresEquipa[i], jogador)
                                 PosicaoJogadores.insert(cena + NumJogadoresEquipa[i], ts)
 
@@ -145,7 +198,19 @@ while True:
                         print(NumJogadoresEquipa)
                         print(JogadoresDaEquipa)
                         print(PosicaoJogadores)
+
+                        atualizarFicheiro()
                         break
+                elif opcao2 == 3:
+                    while True:
+                        jog = input("Nome do jogador: ")
+
+                        for i in range(0, len(JogadoresDaEquipa)):
+                            if JogadoresDaEquipa[i] == jog:
+                                break
+                        
+                        print("ERRO: Jogador não exite!")
+
 
         elif opcao == 2:
             print("opçao 2")
