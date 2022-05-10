@@ -1,10 +1,11 @@
-import random
-
 #--------Variáveis principais--------
 ListaEquipas = []
 NumJogadoresEquipa = []
 JogadoresDaEquipa = []
 PosicaoJogadores = []
+pontos = []
+jogos = []
+classificacoes = []
 #--------Variáveis auxiliares--------
 vez = 0
 gerir = False
@@ -36,6 +37,24 @@ def atualizarFicheiro():
     fich.write("\n")
 
     fich.close()
+
+def buscarConteudo():
+    if gerir == False:
+        ler = open('Projeto-LTP/jogadores.txt', 'r')
+        
+        n = 0
+        palavras = ler.readlines()
+        
+        for line in palavras:
+            n = n + 1
+            for word in line.split():
+                if n == 1: ListaEquipas.append(str(word))
+                if n == 2: NumJogadoresEquipa.append(int(word))
+                if n == 3: JogadoresDaEquipa.append(str(word))
+                if n == 4: PosicaoJogadores.append(str(word))
+        
+        gerir = True
+        ler.close()
 
 def gerirEquipas():
     while True:
@@ -192,23 +211,7 @@ while True:
                     print("3 - Trocar posição do jogador")
                     print("---------------------------------------")
 
-                    #Buscar o conteudo ao ficheiro
-                    if gerir == False:
-                        ler = open('Projeto-LTP/jogadores.txt', 'r')
-                        
-                        n = 0
-                        palavras = ler.readlines()
-                        
-                        for line in palavras:
-                            n = n + 1
-                            for word in line.split():
-                                if n == 1: ListaEquipas.append(str(word))
-                                if n == 2: NumJogadoresEquipa.append(int(word))
-                                if n == 3: JogadoresDaEquipa.append(str(word))
-                                if n == 4: PosicaoJogadores.append(str(word))
-                        
-                        gerir = True
-                        ler.close()
+                    buscarConteudo()
 
                     opcao2 = int(input("Opção: "))
 
@@ -228,10 +231,34 @@ while True:
                         print("ERRO: Opção inválida!")
 
         elif opcao == 2:
-            print("opçao 2")
-            #for i in range(0, equipas):
-                #gerar random os resultados
+            buscarConteudo()
+            
+            for i in range(0, len(ListaEquipas)):
+                pontos.append(0)
 
+            for i in range(0, len(ListaEquipas) - 1):
+                for j in range(i, len(ListaEquipas) - 1):
+                    print(f"-------- {ListaEquipas[i]} x {ListaEquipas[j + 1]} --------")
+                    x = int(input(f"{ListaEquipas[i]}: "))
+                    y = int(input(f"{ListaEquipas[j + 1]}: "))
+                    classificacoes.append(x)
+                    classificacoes.append(y)
+                    jogos.append(ListaEquipas[i])
+                    jogos.append(ListaEquipas[j + 1])
+
+            print(jogos)
+            print(classificacoes)
+
+            for i in range(0, len(classificacoes), 2):
+                if classificacoes[i] > classificacoes[i + 1]:
+                    pontos[ListaEquipas.index(jogos[i])] += 3
+                elif classificacoes[i] < classificacoes[i + 1]:
+                    pontos[ListaEquipas.index(jogos[i + 1])] += 3
+                else:
+                    pontos[ListaEquipas.index(jogos[i])] += 1
+                    pontos[ListaEquipas.index(jogos[i + 1])] += 1
+
+            print(pontos)
         else: break
     else:
         print("\nERRO: Opção não existe!")
