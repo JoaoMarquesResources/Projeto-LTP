@@ -1,4 +1,4 @@
-Benfica Porto Sporting 
-5 5 5 
-1 2 3 4 5 q w e r t Jota miguel flox ric roque 
-t t t t t t t t t t t t t t t 
+benfica Porto Sporting 
+5 6 5 
+1 2 3 4 5 q w e r t y jota miguel flox ric roque 
+t t t t t t t t t t s t t t t t 

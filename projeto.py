@@ -38,22 +38,23 @@ def atualizarFicheiro():
 
     fich.close()
 
-def buscarConteudo():
-    if gerir == False:
+def buscarConteudo(g):
+    if g == False:
         ler = open('Projeto-LTP/jogadores.txt', 'r')
         
         n = 0
         palavras = ler.readlines()
         
-        for line in palavras:
-            n = n + 1
-            for word in line.split():
-                if n == 1: ListaEquipas.append(str(word))
-                if n == 2: NumJogadoresEquipa.append(int(word))
-                if n == 3: JogadoresDaEquipa.append(str(word))
-                if n == 4: PosicaoJogadores.append(str(word))
+        if len(ListaEquipas) == 0:
+            for line in palavras:
+                n = n + 1
+                for word in line.split():
+                    if n == 1: ListaEquipas.append(str(word))
+                    if n == 2: NumJogadoresEquipa.append(int(word))
+                    if n == 3: JogadoresDaEquipa.append(str(word))
+                    if n == 4: PosicaoJogadores.append(str(word))
         
-        gerir = True
+        g = True
         ler.close()
 
 def gerirEquipas():
@@ -211,7 +212,8 @@ while True:
                     print("3 - Trocar posição do jogador")
                     print("---------------------------------------")
 
-                    buscarConteudo()
+                    g = gerir
+                    buscarConteudo(g)
 
                     opcao2 = int(input("Opção: "))
 
@@ -231,8 +233,12 @@ while True:
                         print("ERRO: Opção inválida!")
 
         elif opcao == 2:
-            buscarConteudo()
-            
+            pontos = []
+            jogos = []
+            classificacoes = []
+
+            buscarConteudo(gerir)
+
             for i in range(0, len(ListaEquipas)):
                 pontos.append(0)
 
