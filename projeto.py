@@ -198,73 +198,93 @@ while True:
 
     opcao = int(input("Opção: "))
 
-    if opcao >= 1 and opcao <= 3:
-        if opcao == 1:
-            vez += 1
-            if vez == 1 and gerir:
-                gerirEquipas()
-                atualizarFicheiro()
-            else:
-                while True:
-                    print("\n------ MENU DE GESTÃO DE EQUIPAS ------")
-                    print("1 - Retirar jogador à equipa")
-                    print("2 - Adicionar jogador à equipa")
-                    print("3 - Trocar posição do jogador")
-                    print("---------------------------------------")
+    if opcao == 1:
+        vez += 1
+        if vez == 1 and gerir:
+            gerirEquipas()
+            atualizarFicheiro()
+        else:
+            while True:
+                print("\n------ MENU DE GESTÃO DE EQUIPAS ------")
+                print("1 - Retirar jogador à equipa")
+                print("2 - Adicionar jogador à equipa")
+                print("3 - Trocar posição do jogador")
+                print("4 - Voltar")
+                print("---------------------------------------")
 
-                    g = gerir
-                    buscarConteudo(g)
+                g = gerir
+                buscarConteudo(g)
 
-                    opcao2 = int(input("Opção: "))
+                opcao2 = int(input("Opção: "))
 
-                    if opcao2 == 1:
-                        retirarJogador()
-                        atualizarFicheiro()
-                        break
-                    elif opcao2 == 2:
-                        adicionarJogador()
-                        atualizarFicheiro()
-                        break
-                    elif opcao2 == 3:
-                        mudarPos()
-                        atualizarFicheiro()
-                        break
-                    else:
-                        print("ERRO: Opção inválida!")
-
-        elif opcao == 2:
-            pontos = []
-            jogos = []
-            classificacoes = []
-
-            buscarConteudo(gerir)
-
-            for i in range(0, len(ListaEquipas)):
-                pontos.append(0)
-
-            for i in range(0, len(ListaEquipas) - 1):
-                for j in range(i, len(ListaEquipas) - 1):
-                    print(f"-------- {ListaEquipas[i]} x {ListaEquipas[j + 1]} --------")
-                    x = int(input(f"{ListaEquipas[i]}: "))
-                    y = int(input(f"{ListaEquipas[j + 1]}: "))
-                    classificacoes.append(x)
-                    classificacoes.append(y)
-                    jogos.append(ListaEquipas[i])
-                    jogos.append(ListaEquipas[j + 1])
-
-            print(jogos)
-            print(classificacoes)
-
-            for i in range(0, len(classificacoes), 2):
-                if classificacoes[i] > classificacoes[i + 1]:
-                    pontos[ListaEquipas.index(jogos[i])] += 3
-                elif classificacoes[i] < classificacoes[i + 1]:
-                    pontos[ListaEquipas.index(jogos[i + 1])] += 3
+                if opcao2 == 1:
+                    retirarJogador()
+                    atualizarFicheiro()
+                    break
+                elif opcao2 == 2:
+                    adicionarJogador()
+                    atualizarFicheiro()
+                    break
+                elif opcao2 == 3:
+                    mudarPos()
+                    atualizarFicheiro()
+                    break
+                elif opcao2 == 4:
+                    break
                 else:
-                    pontos[ListaEquipas.index(jogos[i])] += 1
-                    pontos[ListaEquipas.index(jogos[i + 1])] += 1
+                    print("ERRO: Opção inválida!")
 
-            print(pontos)
-        else: break
-    else:
-        print("\nERRO: Opção não existe!")
+    elif opcao == 2:
+        pontos = []
+        golos = []
+        jogos = []
+        classificacoes = []
+
+        buscarConteudo(gerir)
+
+        for i in range(0, len(ListaEquipas)):
+            pontos.append(0)
+            golos.append(0)
+
+        for i in range(0, len(ListaEquipas) - 1):
+            for j in range(i, len(ListaEquipas) - 1):
+                print(f"-------- {ListaEquipas[i]} x {ListaEquipas[j + 1]} --------")
+                x = int(input(f"Golos {ListaEquipas[i]}: "))
+                y = int(input(f"Golos {ListaEquipas[j + 1]}: "))
+                classificacoes.append(x)
+                classificacoes.append(y)
+                jogos.append(ListaEquipas[i])
+                jogos.append(ListaEquipas[j + 1])
+
+        for i in range(0, len(classificacoes), 2):
+            if classificacoes[i] > classificacoes[i + 1]:
+                pontos[ListaEquipas.index(jogos[i])] += 3
+            elif classificacoes[i] < classificacoes[i + 1]:
+                pontos[ListaEquipas.index(jogos[i + 1])] += 3
+            else:
+                pontos[ListaEquipas.index(jogos[i])] += 1
+                pontos[ListaEquipas.index(jogos[i + 1])] += 1
+        
+        for i in range(0, len(ListaEquipas)):
+            for j in range(0, len(classificacoes)):
+                if ListaEquipas[i] == jogos[j]:
+                    golos[i] += classificacoes[j]
+
+        #---------------- PRINTAR CLASSIFICAÇÕES -------------------~
+        print(jogos)
+        print(classificacoes)
+        print(pontos)
+        print(golos)
+        empate = False
+
+        m = pontos.index(max(pontos))
+
+        for i in range(0, len(pontos)):
+            aux = pontos.count(pontos[i])
+            if aux != 1: empate = True
+        
+        if empate == True: print(f"Empate de vencedores: {ListaEquipas[m]}")
+        else: print(f"Vencedor do torneio: {ListaEquipas[m]}")
+
+    elif opcao == 3: break
+    else: print("\nERRO: Opção não existe!")
