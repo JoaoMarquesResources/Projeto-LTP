@@ -203,6 +203,7 @@ while True:
         vez += 1
         if vez == 1 and gerir:
             gerirEquipas()
+            gerir = False
             atualizarFicheiro()
         else:
             while True:
@@ -236,68 +237,72 @@ while True:
                     print("ERRO: Opção inválida!")
 
     elif opcao == 2:
-        pontos = []
-        golos = []
-        jogos = []
-        classificacoes = []
-        golosSofridos = []
+        if gerir == False:
+            pontos = []
+            golos = []
+            jogos = []
+            classificacoes = []
+            golosSofridos = []
 
-        buscarConteudo(gerir)
+            buscarConteudo(gerir)
 
-        for i in range(0, len(ListaEquipas)):
-            pontos.append(0)
-            golos.append(0)
-            golosSofridos.append(0)
+            for i in range(0, len(ListaEquipas)):
+                pontos.append(0)
+                golos.append(0)
+                golosSofridos.append(0)
 
-        for i in range(0, len(ListaEquipas) - 1):
-            for j in range(i, len(ListaEquipas) - 1):
-                print(f"-------- {ListaEquipas[i]} x {ListaEquipas[j + 1]} --------")
-                x = int(input(f"Golos {ListaEquipas[i]}: "))
-                y = int(input(f"Golos {ListaEquipas[j + 1]}: "))
-                classificacoes.append(x)
-                classificacoes.append(y)
-                jogos.append(ListaEquipas[i])
-                jogos.append(ListaEquipas[j + 1])
+            for i in range(0, len(ListaEquipas) - 1):
+                for j in range(i, len(ListaEquipas) - 1):
+                    print(f"-------- {ListaEquipas[i]} x {ListaEquipas[j + 1]} --------")
+                    x = int(input(f"Golos {ListaEquipas[i]}: "))
+                    y = int(input(f"Golos {ListaEquipas[j + 1]}: "))
+                    classificacoes.append(x)
+                    classificacoes.append(y)
+                    jogos.append(ListaEquipas[i])
+                    jogos.append(ListaEquipas[j + 1])
 
-        for i in range(0, len(classificacoes), 2):
-            if classificacoes[i] > classificacoes[i + 1]:
-                pontos[ListaEquipas.index(jogos[i])] += 3
-            elif classificacoes[i] < classificacoes[i + 1]:
-                pontos[ListaEquipas.index(jogos[i + 1])] += 3
-            else:
-                pontos[ListaEquipas.index(jogos[i])] += 1
-                pontos[ListaEquipas.index(jogos[i + 1])] += 1
-        
-        for i in range(0, len(ListaEquipas)):
-            for j in range(0, len(classificacoes)):
-                if ListaEquipas[i] == jogos[j]:
-                    golos[i] += classificacoes[j]
+            for i in range(0, len(classificacoes), 2):
+                if classificacoes[i] > classificacoes[i + 1]:
+                    pontos[ListaEquipas.index(jogos[i])] += 3
+                elif classificacoes[i] < classificacoes[i + 1]:
+                    pontos[ListaEquipas.index(jogos[i + 1])] += 3
+                else:
+                    pontos[ListaEquipas.index(jogos[i])] += 1
+                    pontos[ListaEquipas.index(jogos[i + 1])] += 1
+            
+            for i in range(0, len(ListaEquipas)):
+                for j in range(0, len(classificacoes)):
+                    if ListaEquipas[i] == jogos[j]:
+                        golos[i] += classificacoes[j]
 
-        for i in range(0, len(classificacoes), 2):
-            aux = ListaEquipas.index(jogos[i])
-            golosSofridos[aux] += classificacoes[i + 1]
-            aux = ListaEquipas.index(jogos[i + 1])
-            golosSofridos[aux] += classificacoes[i]
+            for i in range(0, len(classificacoes), 2):
+                aux = ListaEquipas.index(jogos[i])
+                golosSofridos[aux] += classificacoes[i + 1]
+                aux = ListaEquipas.index(jogos[i + 1])
+                golosSofridos[aux] += classificacoes[i]
 
-        #---------------- PRINTAR CLASSIFICAÇÕES -------------------~
-        print(jogos)
-        print(classificacoes)
-        print(pontos)
-        print(golos)
-        print(golosSofridos)
+            #---------------- PRINTAR CLASSIFICAÇÕES -------------------
+            print(jogos)
+            print(classificacoes)
+            print(pontos)
+            print(golos)
+            print(golosSofridos)
 
-        m = max(pontos)
-        m2 = min(golosSofridos)
-        aux = pontos.count(m)
-        pos = pontos.index(m)
-        aux2 = golosSofridos.index(m2)
-        if aux != 1:
-            for i in range(0, len(pontos)):
-                if pontos[i] == m:
-                    if aux2 == i:
-                        print(f"Vencedor {ListaEquipas[aux2]}")
+            m = max(pontos)
+            m2 = min(golosSofridos)
+            aux = pontos.count(m)
+            pos = pontos.index(m)
+            aux2 = golosSofridos.index(m2)
+            if aux != 1:
+                for i in range(0, len(pontos)):
+                    if pontos[i] == m:
+                        if aux2 == i:
+                            print(f"Vencedor {ListaEquipas[aux2]}")
 
-        else: print(f"Vencedor: {ListaEquipas[pos]}")
+            else: print(f"Vencedor: {ListaEquipas[pos]}")
+
+        else: print("ERRO: Ainda não criou as equipas!")
 
     elif opcao == 3: break
+
     else: print("\nERRO: Opção não existe!")
