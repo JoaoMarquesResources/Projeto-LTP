@@ -6,6 +6,7 @@ PosicaoJogadores = []
 pontos = []
 jogos = []
 classificacoes = []
+golosSofridos = []
 #--------Variáveis auxiliares--------
 vez = 0
 gerir = False
@@ -239,12 +240,14 @@ while True:
         golos = []
         jogos = []
         classificacoes = []
+        golosSofridos = []
 
         buscarConteudo(gerir)
 
         for i in range(0, len(ListaEquipas)):
             pontos.append(0)
             golos.append(0)
+            golosSofridos.append(0)
 
         for i in range(0, len(ListaEquipas) - 1):
             for j in range(i, len(ListaEquipas) - 1):
@@ -270,21 +273,31 @@ while True:
                 if ListaEquipas[i] == jogos[j]:
                     golos[i] += classificacoes[j]
 
+        for i in range(0, len(classificacoes), 2):
+            aux = ListaEquipas.index(jogos[i])
+            golosSofridos[aux] += classificacoes[i + 1]
+            aux = ListaEquipas.index(jogos[i + 1])
+            golosSofridos[aux] += classificacoes[i]
+
         #---------------- PRINTAR CLASSIFICAÇÕES -------------------~
         print(jogos)
         print(classificacoes)
         print(pontos)
         print(golos)
-        empate = False
+        print(golosSofridos)
 
-        m = pontos.index(max(pontos))
+        m = max(pontos)
+        m2 = min(golosSofridos)
+        aux = pontos.count(m)
+        pos = pontos.index(m)
+        aux2 = golosSofridos.index(m2)
+        if aux != 1:
+            for i in range(0, len(pontos)):
+                if pontos[i] == m:
+                    if aux2 == i:
+                        print(f"Vencedor {ListaEquipas[aux2]}")
 
-        for i in range(0, len(pontos)):
-            aux = pontos.count(pontos[i])
-            if aux != 1: empate = True
-        
-        if empate == True: print(f"Empate de vencedores: {ListaEquipas[m]}")
-        else: print(f"Vencedor do torneio: {ListaEquipas[m]}")
+        else: print(f"Vencedor: {ListaEquipas[pos]}")
 
     elif opcao == 3: break
     else: print("\nERRO: Opção não existe!")
