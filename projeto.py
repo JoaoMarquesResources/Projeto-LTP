@@ -281,6 +281,8 @@ while True:
             jogos = []
             classificacoes = []
             golosSofridos = []
+            auxiliar = []
+            diferenca = []
 
             buscarConteudo(gerir)
             GerirClassificacoes()
@@ -298,13 +300,17 @@ while True:
             pos = pontos.index(m)
             aux2 = golosSofridos.index(m2)
 
-            auxiliar = []
+            for i in range(0, len(golos)):
+                diferenca.append(golosSofridos[i] - golos[i])
+
             for i in range(0, len(pontos)):
                 if pontos[i] == m:
-                    auxiliar.append(golosSofridos[i])
-                else: auxiliar.append(math.inf)
+                    auxiliar.append(diferenca[i])
+                else: auxiliar.append(-math.inf)
+            
+            print(auxiliar)
 
-            if aux != 1: print(f"Vencedor {ListaEquipas[auxiliar.index(min(auxiliar))]}")
+            if aux != 1: print(f"Vencedor: {ListaEquipas[auxiliar.index(max(auxiliar))]}")
 
             else: print(f"Vencedor: {ListaEquipas[pos]}")
 
