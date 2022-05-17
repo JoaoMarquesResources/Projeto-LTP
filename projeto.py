@@ -1,4 +1,5 @@
 import math
+from tabulate import tabulate
 
 #--------Variáveis principais--------
 ListaEquipas = []
@@ -283,6 +284,7 @@ while True:
             golosSofridos = []
             auxiliar = []
             diferenca = []
+            info = []
 
             buscarConteudo(gerir)
             GerirClassificacoes()
@@ -308,11 +310,28 @@ while True:
                     auxiliar.append(diferenca[i])
                 else: auxiliar.append(-math.inf)
             
-            print(auxiliar)
+            for x in range(3):
+                info.append([])
+                for y in range(4):
+                    info[x].append(0)
 
-            if aux != 1: print(f"Vencedor: {ListaEquipas[auxiliar.index(max(auxiliar))]}")
+            for i in range(0, 3):
+                for j in range(0, 4):
+                    if j == 0:
+                        info[i][j] = ListaEquipas[i]
+                    elif j == 1:
+                        info[i][j] = golos[i]
+                    elif j == 2:
+                        info[i][j] = golosSofridos[i]
+                    elif j == 3:
+                        info[i][j] = pontos[i]
 
-            else: print(f"Vencedor: {ListaEquipas[pos]}")
+            head = ["Equipa", "Golos", "Golos sofridos", "Pontuação"]
+            print(tabulate(info, headers=head, tablefmt="grid"))
+
+            if aux != 1: print(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}")
+
+            else: print(f"Equipa vencedora: {ListaEquipas[pos]}")
 
         else: print("ERRO: Ainda não criou as equipas!")
 
