@@ -303,7 +303,7 @@ while True:
             aux2 = golosSofridos.index(m2)
 
             for i in range(0, len(golos)):
-                diferenca.append(golosSofridos[i] - golos[i])
+                diferenca.append(golos[i] - golosSofridos[i])
 
             for i in range(0, len(pontos)):
                 if pontos[i] == m:
@@ -329,7 +329,9 @@ while True:
             head = ["Equipa", "Golos", "Golos sofridos", "Pontuação"]
             print(tabulate(info, headers=head, tablefmt="grid"))
 
-            if aux != 1: print(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}")
+            if aux != 1:
+                print(auxiliar)
+                print(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}")
 
             else: print(f"Equipa vencedora: {ListaEquipas[pos]}")
 
