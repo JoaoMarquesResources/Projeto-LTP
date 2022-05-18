@@ -1,3 +1,5 @@
+from colorama import init
+from termcolor import colored
 import math
 from tabulate import tabulate
 
@@ -20,6 +22,8 @@ conteudo = ler.read()
 #Verificar se o ficheiro tem conteudo
 if conteudo == "": gerir = True
 ler.close()
+
+init()
 
 def atualizarFicheiro():
     fich = open('Projeto-LTP/jogadores.txt', 'w')
@@ -64,20 +68,20 @@ def buscarConteudo(g):
 
 def gerirEquipas():
     while True:
-        equipas = int(input("\nNúmero de Equipas: "))
+        equipas = int(input(colored("\nNº de equipas: ", "green")))
 
         if equipas < 3 or equipas > 10:
-            print("ERRO: Numero de equipas inválido")
+            print(colored("ERRO: Numero de equipas inválido", "red"))
         else: break
     
     for i in range(0, equipas):
-        nomeEquipa = input("\nNome da Equipa: ")
+        nomeEquipa = input(colored("\nNome da Equipa: ", "yellow"))
 
         while True:
-            numJogadores = int(input("Número de jogadores da equipa: "))
+            numJogadores = int(input(colored("Número de jogadores da equipa: ", "green")))
 
             if numJogadores < 5 or numJogadores > 11:
-                print("ERRO: Número de Jogadores inválido!")
+                print(colored("ERRO: Número de Jogadores inválido!", "green"))
             else:
                 ListaEquipas.append(nomeEquipa)
                 NumJogadoresEquipa.append(numJogadores)
@@ -85,36 +89,34 @@ def gerirEquipas():
         
         print(f"----- Jogadores da equipa {nomeEquipa} -----")
         for i in range(0, numJogadores):
-            nome = str(input(f"Nome do jogador {i + 1}: "))
+            nome = str(input(colored(f"\nNome do jogador {i + 1}: ", "green")))
             JogadoresDaEquipa.append(nome)
             while True:
-                posicao = input(f"O jogador {nome} é Titular ou Suplente (t/s): ")
+                posicao = input(colored(f"O jogador {nome} é Titular ou Suplente (t/s): ", "green"))
                 if posicao == "t" or posicao == "s":
                     PosicaoJogadores.append(posicao)
                     break
-                else: print("ERRO: Posição inválida!")
+                else: print(colored("ERRO: Posição inválida!", "red"))
         print(38*"-")
 
     print(ListaEquipas)
-    print(NumJogadoresEquipa)
-    print(JogadoresDaEquipa)
-    print(PosicaoJogadores)
+    printarListas()
 
 def retirarJogador():
     print(f"Equipas: {ListaEquipas}")     
     while True:
-        equipa = input("Nome da equipa para remover jogador: ")
+        equipa = input(colored("Nome da equipa para remover jogador: ", "green"))
         if equipa in ListaEquipas:
             pos = ListaEquipas.index(equipa)
             if NumJogadoresEquipa[pos] > 5:
                 break
             else:
-                print("ERRO: Tamanho da equipa ficará menor que 5!")
+                print(colored("ERRO: Tamanho da equipa ficará menor que 5!", "red"))
         else:
-            print("ERRO: Nome da equipa inválido!")
+            print(colored("ERRO: Nome da equipa inválido!", "red"))
 
     while True:
-        jogador = input(f"\nNome do jogador a remover da equipa {equipa}: ")
+        jogador = input(colored(f"\nNome do jogador a remover da equipa {equipa}: ", "green"))
 
         aux = -1
         aux2 = 0
@@ -131,36 +133,34 @@ def retirarJogador():
         if aux == pos:
             break
         else:
-            print(f"ERRO: O jogador: {jogador} não faz parte da equipa: {equipa}")
+            print(colored(f"ERRO: O jogador: {jogador} não faz parte da equipa: {equipa}", "red"))
 
     NumJogadoresEquipa[aux] -= 1
     JogadoresDaEquipa.pop(aux2)
     PosicaoJogadores.pop(aux2)
 
-    print(NumJogadoresEquipa)
-    print(JogadoresDaEquipa)
-    print(PosicaoJogadores)
+    printarListas()
 
 def adicionarJogador():
     print(f"Equipas: {ListaEquipas}")     
     while True:
-        equipa = input("Nome da equipa para adicionar jogador: ")
+        equipa = input(colored("Nome da equipa para adicionar jogador: ", "green"))
         if equipa in ListaEquipas:
             pos = ListaEquipas.index(equipa)
             if NumJogadoresEquipa[pos] < 11:
                 break
             else:
-                print("ERRO: Tamanho da equipa ficará maior que 11!")
+                print(colored("ERRO: Tamanho da equipa ficará maior que 11!", "red"))
         else:
-            print("ERRO: Nome da equipa inválido!")
+            print(colored("ERRO: Nome da equipa inválido!", "red"))
 
-    jogador = input(f"\nNome do jogador a adicionar na equipa {equipa}: ")
+    jogador = input(colored(f"\nNome do jogador a adicionar na equipa {equipa}: ", "green"))
 
     while True:
-        ts = input("Titular ou suplente (t/s): ")
+        ts = input(colored("Titular ou suplente (t/s): ", "green"))
 
         if ts == "t" or ts == "s": break
-        else: print("ERRO: Posição inválida!")
+        else: print(colored("ERRO: Posição inválida!", "red"))
 
     for i in range(0, len(NumJogadoresEquipa)):
         if i == 0: cena = 0
@@ -172,26 +172,22 @@ def adicionarJogador():
 
     NumJogadoresEquipa[pos] += 1
 
-    print(NumJogadoresEquipa)
-    print(JogadoresDaEquipa)
-    print(PosicaoJogadores)
+    printarListas()
 
 def mudarPos():
     while True:
-        jog = input("Nome do jogador: ")
+        jog = input(colored("Nome do jogador: ", "green"))
 
         if jog in JogadoresDaEquipa:
             i = JogadoresDaEquipa.index(jog)
             break
-        else: print("ERRO: Jogador não exite!")
+        else: print(colored("ERRO: Jogador não exite!", "red"))
 
-    pos = input("Posição nova do jogador (t/s): ")
+    pos = input(colored("Posição nova do jogador (t/s): ", "green"))
 
     PosicaoJogadores[i] = pos
 
-    print(NumJogadoresEquipa)
-    print(JogadoresDaEquipa)
-    print(PosicaoJogadores)
+    printarListas()
 
 def GerirClassificacoes():
     for i in range(0, len(ListaEquipas)):
@@ -202,8 +198,8 @@ def GerirClassificacoes():
     for i in range(0, len(ListaEquipas) - 1):
         for j in range(i, len(ListaEquipas) - 1):
             print(f"-------- {ListaEquipas[i]} x {ListaEquipas[j + 1]} --------")
-            x = int(input(f"Golos {ListaEquipas[i]}: "))
-            y = int(input(f"Golos {ListaEquipas[j + 1]}: "))
+            x = int(input(colored(f"Golos {ListaEquipas[i]}: ", "green")))
+            y = int(input(colored(f"Golos {ListaEquipas[j + 1]}: ", "green")))
             classificacoes.append(x)
             classificacoes.append(y)
             jogos.append(ListaEquipas[i])
@@ -228,15 +224,20 @@ def GerirClassificacoes():
         golosSofridos[aux] += classificacoes[i + 1]
         aux = ListaEquipas.index(jogos[i + 1])
         golosSofridos[aux] += classificacoes[i]
-    
+
+def printarListas():
+    print(f"Nº de jogadores de cada equipa: {NumJogadoresEquipa}")
+    print(f"Jogadores das equipas: {JogadoresDaEquipa}")
+    print(f"Posição jogadores: {PosicaoJogadores}")
+
 while True:
-    print("\n----- MENU -----")
+    print(colored("\n----- MENU -----", "blue"))
     print("1 - Gerir Equipas")
     print("2 - Gerir Jogos e Classificações")
     print("3 - Sair")
-    print("----------------")
+    print(colored("----------------", "blue"))
 
-    opcao = int(input("Opção: "))
+    opcao = int(input(colored("Opção: ", "green")))
 
     if opcao == 1:
         vez += 1
@@ -246,17 +247,17 @@ while True:
             atualizarFicheiro()
         else:
             while True:
-                print("\n------ MENU DE GESTÃO DE EQUIPAS ------")
+                print(colored("\n------ MENU DE GESTÃO DE EQUIPAS ------", "blue"))
                 print("1 - Retirar jogador à equipa")
                 print("2 - Adicionar jogador à equipa")
                 print("3 - Trocar posição do jogador")
                 print("4 - Voltar")
-                print("---------------------------------------")
+                print(colored("---------------------------------------", "blue"))
 
                 g = gerir
                 buscarConteudo(g)
 
-                opcao2 = int(input("Opção: "))
+                opcao2 = int(input(colored("Opção: ", "green")))
 
                 if opcao2 == 1:
                     retirarJogador()
@@ -273,7 +274,7 @@ while True:
                 elif opcao2 == 4:
                     break
                 else:
-                    print("ERRO: Opção inválida!")
+                    print(colored("ERRO: Opção inválida!", "red"))
 
     elif opcao == 2:
         if gerir == False:
@@ -289,13 +290,7 @@ while True:
             buscarConteudo(gerir)
             GerirClassificacoes()
 
-            #---------------- PRINTAR CLASSIFICAÇÕES -------------------
-            print(jogos)
-            print(classificacoes)
-            print(pontos)
-            print(golos)
-            print(golosSofridos)
-
+            #---------------- Printar Classificações -------------------
             m = max(pontos)
             m2 = min(golosSofridos)
             aux = pontos.count(m)
@@ -310,13 +305,13 @@ while True:
                     auxiliar.append(diferenca[i])
                 else: auxiliar.append(-math.inf)
             
-            for x in range(3):
+            for x in range(len(ListaEquipas)):
                 info.append([])
-                for y in range(4):
+                for y in range(5):
                     info[x].append(0)
 
-            for i in range(0, 3):
-                for j in range(0, 4):
+            for i in range(0, len(ListaEquipas)):
+                for j in range(0, 5):
                     if j == 0:
                         info[i][j] = ListaEquipas[i]
                     elif j == 1:
@@ -324,19 +319,20 @@ while True:
                     elif j == 2:
                         info[i][j] = golosSofridos[i]
                     elif j == 3:
+                        info[i][j] = diferenca[i]
+                    elif j == 4:
                         info[i][j] = pontos[i]
 
-            head = ["Equipa", "Golos", "Golos sofridos", "Pontuação"]
-            print(tabulate(info, headers=head, tablefmt="grid"))
+            head = ["Equipa", "Golos", "Golos sofridos", "Diferença de golos", "Pontuação"]
+            print(tabulate(info, headers = head, tablefmt = "grid"))
 
             if aux != 1:
-                print(auxiliar)
-                print(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}")
+                print(colored(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}", "blue"))
 
-            else: print(f"Equipa vencedora: {ListaEquipas[pos]}")
+            else: print(colored(f"Equipa vencedora: {ListaEquipas[pos]}", "yellow"))
 
-        else: print("ERRO: Ainda não criou as equipas!")
+        else: print(colored("ERRO: Ainda não criou as equipas!", "red"))
 
     elif opcao == 3: break
 
-    else: print("\nERRO: Opção não existe!")
+    else: print(colored("\nERRO: Opção não existe!", "red"))
