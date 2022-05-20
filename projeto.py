@@ -1,4 +1,5 @@
 import time
+from traceback import print_tb
 from colorama import init
 from termcolor import colored
 import math
@@ -47,6 +48,15 @@ def atualizarFicheiro():
         fich.write(f"{PosicaoJogadores[i]} ")
     fich.write("\n")
 
+    for i in range(0, len(historico["hist"])):
+        h = historico["hist"][i]
+        fich.write(f"{h}.")
+    fich.write("\n")
+
+    for i in range(0, len(historico["hist"])):
+        d = historico["data"][i]
+        fich.write(f"{d}.")
+
     fich.close()
 
 def buscarConteudo(g):
@@ -61,9 +71,14 @@ def buscarConteudo(g):
                 n = n + 1
                 for word in line.split():
                     if n == 1: ListaEquipas.append(str(word))
-                    if n == 2: NumJogadoresEquipa.append(int(word))
-                    if n == 3: JogadoresDaEquipa.append(str(word))
-                    if n == 4: PosicaoJogadores.append(str(word))
+                    elif n == 2: NumJogadoresEquipa.append(int(word))
+                    elif n == 3: JogadoresDaEquipa.append(str(word))
+                    elif n == 4: PosicaoJogadores.append(str(word))
+                
+                for word in line.split("."):
+                    if word != "\n" and word != "":
+                        if n == 5: historico["hist"].append(str(word))
+                        elif n == 6: historico["data"].append(str(word))
         
         g = True
         ler.close()
@@ -141,7 +156,7 @@ def retirarJogador():
     PosicaoJogadores.pop(aux2)
 
     print(colored("\n--- Alterações ---", "blue"))
-    f = f"Removeu o jogador {jogador} da equipa {equipa}."
+    f = f"Removeu o jogador {jogador} da equipa {equipa}"
     print(f)
     time1 = time.asctime()
     
@@ -180,7 +195,7 @@ def adicionarJogador():
     NumJogadoresEquipa[pos] += 1
 
     print(colored("\n--- Alterações ---", "blue"))
-    f = f"Adicionou o jogador {jogador}({ts}) na equipa {equipa}."
+    f = f"Adicionou o jogador {jogador}({ts}) na equipa {equipa}"
     print(f)
     time1 = time.asctime()
     
@@ -206,7 +221,7 @@ def mudarPos():
     PosicaoJogadores[i] = pos
 
     print(colored("\n--- Alterações ---", "blue"))
-    f = f"Trocou a posição do jogador {jog} para {pos}."
+    f = f"Trocou a posição do jogador {jog} para {pos}"
     print(f)
     time1 = time.asctime()
     
@@ -360,11 +375,14 @@ while True:
         else: print(colored("ERRO: Ainda não criou as equipas!", "red"))
 
     elif opcao == 3:
-        if historico["hist"]:
-            for i in range(0, len(historico["hist"])):
-                d = historico["data"][i]
-                h = historico["hist"][i]
-                print(d + h)
+        if gerir == False:
+            buscarConteudo(gerir)
+            if historico["hist"]:
+                for i in range(0, len(historico["hist"])):
+                    d = historico["data"][i]
+                    h = historico["hist"][i]
+                    print(f"{h} - {d}")
+            else: print(colored("Sem Histórico!", "red"))    
         else: print(colored("Sem Histórico!", "red"))
             
 
