@@ -1,3 +1,4 @@
+import time
 from colorama import init
 from termcolor import colored
 import math
@@ -12,6 +13,7 @@ pontos = []
 jogos = []
 classificacoes = []
 golosSofridos = []
+historico = {"hist":[], "data":[]}
 #--------Variáveis auxiliares--------
 vez = 0
 gerir = False
@@ -99,7 +101,6 @@ def gerirEquipas():
                 else: print(colored("ERRO: Posição inválida!", "red"))
         print(38*"-")
 
-    print(ListaEquipas)
     printarListas()
 
 def retirarJogador():
@@ -139,7 +140,13 @@ def retirarJogador():
     JogadoresDaEquipa.pop(aux2)
     PosicaoJogadores.pop(aux2)
 
-    printarListas()
+    print(colored("\n--- Alterações ---", "blue"))
+    f = f"Removeu o jogador {jogador} da equipa {equipa}."
+    print(f)
+    time1 = time.asctime()
+    
+    historico["hist"].append(f)
+    historico["data"].append(time1)
 
 def adicionarJogador():
     print(f"Equipas: {ListaEquipas}")     
@@ -172,7 +179,13 @@ def adicionarJogador():
 
     NumJogadoresEquipa[pos] += 1
 
-    printarListas()
+    print(colored("\n--- Alterações ---", "blue"))
+    f = f"Adicionou o jogador {jogador}({ts}) na equipa {equipa}."
+    print(f)
+    time1 = time.asctime()
+    
+    historico["hist"].append(f)
+    historico["data"].append(time1)
 
 def mudarPos():
     while True:
@@ -183,11 +196,22 @@ def mudarPos():
             break
         else: print(colored("ERRO: Jogador não exite!", "red"))
 
-    pos = input(colored("Posição nova do jogador (t/s): ", "green"))
+    while True:
+        pos = input(colored("Posição nova do jogador (t/s): ", "green"))
+
+        if pos == "t" or pos == "s":
+            break
+        else: print(colored("ERRO: Posição inválida!", "red"))
 
     PosicaoJogadores[i] = pos
 
-    printarListas()
+    print(colored("\n--- Alterações ---", "blue"))
+    f = f"Trocou a posição do jogador {jog} para {pos}."
+    print(f)
+    time1 = time.asctime()
+    
+    historico["hist"].append(f)
+    historico["data"].append(time1)
 
 def GerirClassificacoes():
     for i in range(0, len(ListaEquipas)):
@@ -226,6 +250,7 @@ def GerirClassificacoes():
         golosSofridos[aux] += classificacoes[i]
 
 def printarListas():
+    print(f"\nEquipas criadas: {ListaEquipas}")
     print(f"Nº de jogadores de cada equipa: {NumJogadoresEquipa}")
     print(f"Jogadores das equipas: {JogadoresDaEquipa}")
     print(f"Posição jogadores: {PosicaoJogadores}")
@@ -234,7 +259,8 @@ while True:
     print(colored("\n----- MENU -----", "blue"))
     print("1 - Gerir Equipas")
     print("2 - Gerir Jogos e Classificações")
-    print("3 - Sair")
+    print("3 - Histórico de Alterações")
+    print("4 - Sair")
     print(colored("----------------", "blue"))
 
     opcao = int(input(colored("Opção: ", "green")))
@@ -333,6 +359,15 @@ while True:
 
         else: print(colored("ERRO: Ainda não criou as equipas!", "red"))
 
-    elif opcao == 3: break
+    elif opcao == 3:
+        if historico["hist"]:
+            for i in range(0, len(historico["hist"])):
+                d = historico["data"][i]
+                h = historico["hist"][i]
+                print(d + h)
+        else: print(colored("Sem Histórico!", "red"))
+            
+
+    elif opcao == 4: break
 
     else: print(colored("\nERRO: Opção não existe!", "red"))
