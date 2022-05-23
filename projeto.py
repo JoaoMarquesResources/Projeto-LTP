@@ -1,5 +1,4 @@
 import time
-from traceback import print_tb
 from colorama import init
 from termcolor import colored
 import math
@@ -14,6 +13,7 @@ pontos = []
 jogos = []
 classificacoes = []
 golosSofridos = []
+jogosJogados = []
 historico = {"hist":[], "data":[]}
 #--------Variáveis auxiliares--------
 vez = 0
@@ -92,7 +92,7 @@ def gerirEquipas():
         else: break
     
     for i in range(0, equipas):
-        nomeEquipa = input(colored("\nNome da Equipa: ", "yellow"))
+        nomeEquipa = input(colored(f"\nNome da Equipa {i + 1}: ", "yellow"))
 
         while True:
             numJogadores = int(input(colored("Número de jogadores da equipa: ", "green")))
@@ -104,9 +104,9 @@ def gerirEquipas():
                 NumJogadoresEquipa.append(numJogadores)
                 break
         
-        print(f"----- Jogadores da equipa {nomeEquipa} -----")
+        print(f"\n----- Jogadores da equipa {nomeEquipa} -----")
         for i in range(0, numJogadores):
-            nome = str(input(colored(f"\nNome do jogador {i + 1}: ", "green")))
+            nome = str(input(colored(f"Nome do jogador {i + 1}: ", "green")))
             JogadoresDaEquipa.append(nome)
             while True:
                 posicao = input(colored(f"O jogador {nome} é Titular ou Suplente (t/s): ", "green"))
@@ -115,6 +115,9 @@ def gerirEquipas():
                     break
                 else: print(colored("ERRO: Posição inválida!", "red"))
         print(38*"-")
+
+    historico["hist"].append("Equipas Criadas")
+    historico["data"].append(time.asctime())
 
     printarListas()
 
@@ -264,6 +267,9 @@ def GerirClassificacoes():
         aux = ListaEquipas.index(jogos[i + 1])
         golosSofridos[aux] += classificacoes[i]
 
+    for i in range(0, len(ListaEquipas)):
+        jogosJogados.append(jogos.count(ListaEquipas[i]))
+
 def printarListas():
     print(f"\nEquipas criadas: {ListaEquipas}")
     print(f"Nº de jogadores de cada equipa: {NumJogadoresEquipa}")
@@ -348,27 +354,29 @@ while True:
             
             for x in range(len(ListaEquipas)):
                 info.append([])
-                for y in range(5):
+                for y in range(6):
                     info[x].append(0)
 
             for i in range(0, len(ListaEquipas)):
-                for j in range(0, 5):
+                for j in range(0, 6):
                     if j == 0:
                         info[i][j] = ListaEquipas[i]
                     elif j == 1:
-                        info[i][j] = golos[i]
+                        info[i][j] = jogosJogados[i]
                     elif j == 2:
-                        info[i][j] = golosSofridos[i]
+                        info[i][j] = golos[i]
                     elif j == 3:
-                        info[i][j] = diferenca[i]
+                        info[i][j] = golosSofridos[i]
                     elif j == 4:
+                        info[i][j] = diferenca[i]
+                    elif j == 5:
                         info[i][j] = pontos[i]
 
-            head = ["Equipa", "Golos", "Golos sofridos", "Diferença de golos", "Pontuação"]
+            head = ["Equipa", "Nº de Jogos", "Golos", "Golos sofridos", "Diferença de golos", "Pontuação"]
             print(tabulate(info, headers = head, tablefmt = "grid"))
 
             if aux != 1:
-                print(colored(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}", "blue"))
+                print(colored(f"Equipa vencedora: {ListaEquipas[auxiliar.index(max(auxiliar))]}", "yellow"))
 
             else: print(colored(f"Equipa vencedora: {ListaEquipas[pos]}", "yellow"))
 
