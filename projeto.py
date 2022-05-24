@@ -295,6 +295,7 @@ while True:
 
     if opcao == 1:
         vez += 1
+        #Se o ficheiro não tem conteudo, corre a função de gerir equipas e atualizamos o ficheiro
         if vez == 1 and gerir:
             gerirEquipas()
             gerir = False
@@ -302,6 +303,7 @@ while True:
         else:
             while True:
                 while True:
+                    #Tratamento de erro usando o try-except
                     try:
                         print(colored("\n------ MENU DE GESTÃO DE EQUIPAS ------", "blue"))
                         print("1 - Retirar jogador à equipa")
@@ -315,9 +317,10 @@ while True:
                         print(colored("ERRO: Opção inválida!", "red"))
                     else: break
 
-                g = gerir
-                buscarConteudo(g)
+                #g = gerir
+                buscarConteudo(gerir)
 
+                #Executa as funções conforme a escolha da opção
                 if opcao2 == 1:
                     retirarJogador()
                     atualizarFicheiro()

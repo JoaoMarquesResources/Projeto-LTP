@@ -1,6 +1,6 @@
 bENFICA Porto Sporting 
 5 6 5 
-1 3 4 5 6 q w e r t y oi ola hi olaa ze 
-t t t t s t t t t t t t t t t t 
-Equipas Criadas.Adicionou o jogador 6(s) na equipa bENFICA.Removeu o jogador 2 da equipa bENFICA.Trocou a posição do jogador oi para t.Adicionou o jogador y(t) na equipa Porto.
-Tue May 24 09:14:28 2022.Tue May 24 09:14:45 2022.Tue May 24 09:14:52 2022.Tue May 24 09:15:07 2022.Tue May 24 09:15:20 2022.
+1 3 4 5 dwa q w e r t y oi ola hi olaa ze 
+t s t t s t t t t t t t t t t t 
+Equipas Criadas.Adicionou o jogador 6(s) na equipa bENFICA.Removeu o jogador 2 da equipa bENFICA.Trocou a posição do jogador oi para t.Adicionou o jogador y(t) na equipa Porto.Adicionou o jogador dwa(s) na equipa bENFICA.Trocou a posição do jogador 3 para s.Removeu o jogador 6 da equipa bENFICA.
+Tue May 24 09:14:28 2022.Tue May 24 09:14:45 2022.Tue May 24 09:14:52 2022.Tue May 24 09:15:07 2022.Tue May 24 09:15:20 2022.Tue May 24 09:29:22 2022.Tue May 24 09:29:35 2022.Tue May 24 09:30:09 2022.
