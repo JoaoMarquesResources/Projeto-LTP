@@ -432,5 +432,3 @@ while True:
     elif opcao == 4: break
 
     else: print(colored("ERRO: Opção inválida!", "red"))
-
-    print("DAIJDWOIJDOAOWJDIAJW")
