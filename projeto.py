@@ -426,9 +426,11 @@ while True:
                     d = historico["data"][i]
                     h = historico["hist"][i]
                     print(f"{h} - {d}")
-            else: print(colored("Sem Histórico!", "red"))    
+            else: print(colored("Sem Histórico!", "red"))
         else: print(colored("Sem Histórico!", "red"))
 
     elif opcao == 4: break
 
     else: print(colored("ERRO: Opção inválida!", "red"))
+
+    print("DAIJDWOIJDOAOWJDIAJW")
