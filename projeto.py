@@ -28,6 +28,7 @@ ler.close()
 
 init()
 
+#Função que atualiza o conteudo do ficheiro escrevendo no mesmo todo o conteudo das listas
 def atualizarFicheiro():
     fich = open('Projeto-LTP/jogadores.txt', 'w')
 
@@ -58,7 +59,7 @@ def atualizarFicheiro():
         fich.write(f"{d}.")
 
     fich.close()
-
+#Função que vai buscar o conteudo ao ficheiro e preenche as listas
 def buscarConteudo(g):
     if g == False:
         ler = open('Projeto-LTP/jogadores.txt', 'r')
@@ -82,7 +83,7 @@ def buscarConteudo(g):
         
         g = True
         ler.close()
-
+#Função que cria as equipas, os respetivos jogadores etc
 def gerirEquipas():
     while True:
         equipas = int(input(colored("\nNº de equipas: ", "green")))
@@ -120,7 +121,7 @@ def gerirEquipas():
     historico["data"].append(time.asctime())
 
     printarListas()
-
+#Função que permite retirar jogadores das equipas
 def retirarJogador():
     print(f"Equipas: {ListaEquipas}")     
     while True:
@@ -165,7 +166,7 @@ def retirarJogador():
     
     historico["hist"].append(f)
     historico["data"].append(time1)
-
+#Função que permite adicionar jogadores às equipas
 def adicionarJogador():
     print(f"Equipas: {ListaEquipas}")     
     while True:
@@ -204,7 +205,7 @@ def adicionarJogador():
     
     historico["hist"].append(f)
     historico["data"].append(time1)
-
+#Função que permite mudar a posição do jogador (titular / suplente)
 def mudarPos():
     while True:
         jog = input(colored("Nome do jogador: ", "green"))
@@ -230,7 +231,7 @@ def mudarPos():
     
     historico["hist"].append(f)
     historico["data"].append(time1)
-
+#Função que permite gerir as classificações do torneio mostrando o vencedor do mesmo
 def GerirClassificacoes():
     for i in range(0, len(ListaEquipas)):
         pontos.append(0)
@@ -269,7 +270,7 @@ def GerirClassificacoes():
 
     for i in range(0, len(ListaEquipas)):
         jogosJogados.append(jogos.count(ListaEquipas[i]))
-
+#Função auxiliar para printar várias listas do programa
 def printarListas():
     print(f"\nEquipas criadas: {ListaEquipas}")
     print(f"Nº de jogadores de cada equipa: {NumJogadoresEquipa}")
@@ -277,14 +278,20 @@ def printarListas():
     print(f"Posição jogadores: {PosicaoJogadores}")
 
 while True:
-    print(colored("\n----- MENU -----", "blue"))
-    print("1 - Gerir Equipas")
-    print("2 - Gerir Jogos e Classificações")
-    print("3 - Histórico de Alterações")
-    print("4 - Sair")
-    print(colored("----------------", "blue"))
+    while True:
+        #Tratamento de erro usando o try-except
+        try:
+            print(colored("\n----- MENU -----", "blue"))
+            print("1 - Gerir Equipas")
+            print("2 - Gerir Jogos e Classificações")
+            print("3 - Histórico de Alterações")
+            print("4 - Sair")
+            print(colored("----------------", "blue"))
 
-    opcao = int(input(colored("Opção: ", "green")))
+            opcao = int(input(colored("Opção: ", "green")))
+        except(ValueError):
+            print(colored("ERRO: Opção inválida!", "red"))
+        else: break
 
     if opcao == 1:
         vez += 1
@@ -294,17 +301,22 @@ while True:
             atualizarFicheiro()
         else:
             while True:
-                print(colored("\n------ MENU DE GESTÃO DE EQUIPAS ------", "blue"))
-                print("1 - Retirar jogador à equipa")
-                print("2 - Adicionar jogador à equipa")
-                print("3 - Trocar posição do jogador")
-                print("4 - Voltar")
-                print(colored("---------------------------------------", "blue"))
+                while True:
+                    try:
+                        print(colored("\n------ MENU DE GESTÃO DE EQUIPAS ------", "blue"))
+                        print("1 - Retirar jogador à equipa")
+                        print("2 - Adicionar jogador à equipa")
+                        print("3 - Trocar posição do jogador")
+                        print("4 - Voltar")
+                        print(colored("---------------------------------------", "blue"))
+                        
+                        opcao2 = int(input(colored("Opção: ", "green")))
+                    except(ValueError):
+                        print(colored("ERRO: Opção inválida!", "red"))
+                    else: break
 
                 g = gerir
                 buscarConteudo(g)
-
-                opcao2 = int(input(colored("Opção: ", "green")))
 
                 if opcao2 == 1:
                     retirarJogador()
@@ -392,8 +404,7 @@ while True:
                     print(f"{h} - {d}")
             else: print(colored("Sem Histórico!", "red"))    
         else: print(colored("Sem Histórico!", "red"))
-            
 
     elif opcao == 4: break
 
-    else: print(colored("\nERRO: Opção não existe!", "red"))
+    else: print(colored("ERRO: Opção inválida!", "red"))
