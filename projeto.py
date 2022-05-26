@@ -125,7 +125,7 @@ def gerirEquipas():
     printarListas()
 #Função que permite retirar jogadores das equipas
 def retirarJogador():
-    print(f"Equipas: {ListaEquipas}")     
+    print(f"Equipas: {ListaEquipas}")
     while True:
         equipa = input(colored("Nome da equipa para remover jogador: ", "green"))
         if equipa in ListaEquipas:
@@ -331,7 +331,6 @@ while True:
                         print(colored("ERRO: Opção inválida!", "red"))
                     else: break
 
-                #g = gerir
                 buscarConteudo(gerir)
 
                 #Executa as funções conforme a escolha da opção
