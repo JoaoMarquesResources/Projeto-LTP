@@ -1,0 +1,6 @@
+Benfica Porto Sporting 
+5 6 5 
+Miguel Guilherme Ze Bob Ola Lucas Miguel G Tiago Tomï¿½s Exemplo Felix JogadorExemplo1 JogadorExemplo2 JogadorExemplo3 JogadorExemplo4 JogadorExemplo5 
+t t t s t t t t t t s t t t t t 
+Equipas Criadas.Adicionou o jogador Ola(t) na equipa Benfica.Removeu o jogador Joao da equipa Benfica.Adicionou o jogador Exemplo(s) na equipa Porto.Trocou a posição do jogador Bob para s.
+Thu May 26 21:54:13 2022.Thu May 26 22:18:33 2022.Thu May 26 22:19:03 2022.Thu May 26 22:36:53 2022.Thu May 26 22:46:51 2022.

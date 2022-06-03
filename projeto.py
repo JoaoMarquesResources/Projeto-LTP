@@ -19,7 +19,7 @@ historico = {"hist":[], "data":[]}
 vez = 0
 gerir = False
 
-ler = open('Projeto-LTP/jogadores.txt', 'r')
+ler = open('jogadores.txt', 'r')
 conteudo = ler.read()
 
 #Verificar se o ficheiro tem conteudo
@@ -30,7 +30,7 @@ init()
 
 #Função que atualiza o conteudo do ficheiro escrevendo no mesmo todo o conteudo das listas
 def atualizarFicheiro():
-    fich = open('Projeto-LTP/jogadores.txt', 'w')
+    fich = open('jogadores.txt', 'w')
 
     #Escrever no ficheiro a informação
     for i in range(0, len(ListaEquipas)):
@@ -62,7 +62,7 @@ def atualizarFicheiro():
 #Função que vai buscar o conteudo ao ficheiro e preenche as listas
 def buscarConteudo(g):
     if g == False:
-        ler = open('Projeto-LTP/jogadores.txt', 'r')
+        ler = open('jogadores.txt', 'r')
         
         n = 0
         palavras = ler.readlines()
